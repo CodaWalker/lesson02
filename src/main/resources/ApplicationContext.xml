@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans  xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:context="http://www.springframework.org/schema/context"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <bean id="musicBean"
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <context:property-placeholder location="classpath:props/*"/>
+    <bean id="musicRockBean"
           class="ru.spring.lesson02.RockMusic">
 <!--        <constructor-arg value="Konstantin"/>-->
     </bean>
+    <bean id="musicClassicalBean"
+          class="ru.spring.lesson02.ClassicalMusic">
+        <!--        <constructor-arg value="Konstantin"/>-->
+    </bean>
+
+    <bean id="musicBluesBean"
+          class="ru.spring.lesson02.BluesMusic">
+        <!--        <constructor-arg value="Konstantin"/>-->
+    </bean>
+
+    <bean id="musicPlayer"
+          class="ru.spring.lesson02.MusicPlayer">
+        <property name="musicList">
+            <list>
+               <ref bean="musicBluesBean"/>
+                <ref bean="musicClassicalBean"/>
+                <ref bean="musicRockBean"/>
+            </list>
+        </property>
+                    <property name="name" value="${musicPlayer.name}"/>
+                    <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+
+<!--    <util:list id="musicList"-->
+<!--               list-class="java.util.LinkedList">-->
+<!--       <ref bean="musicBluesBean"/>-->
+<!--        <ref bean="musicClassicalBean"/>-->
+<!--        <ref bean="musicRockBean"/>-->
+<!--    </util:list>-->
 
 </beans>
